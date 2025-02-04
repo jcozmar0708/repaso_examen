@@ -1,9 +1,11 @@
 import './App.css';
 import React, { useState } from 'react';
 import ButtonConv from './components/ButtonConv';
+import Text from './components/Text';
 
 function App() {
   const [dinero, setDinero] = useState(0);
+
   const [dineroConvertido, setDineroConvertido] = useState({
     libras: 0,
     dolares: 0,
@@ -11,6 +13,8 @@ function App() {
     yuanes: 0,
     bitcoin: 0
   });
+
+  const [moneda, setMoneda] = useState('libras');
 
   const dineroInput = (e) => {
     setDinero(e.target.value);
@@ -26,15 +30,25 @@ function App() {
     });
   };
 
+  const cambiarMoneda = (e) => {
+    setMoneda(e.target.value);
+  };
+
   return (
     <div className="App">
       <input type="text" onChange={dineroInput} />
+
       <ButtonConv texto='Convertir' convertir={convertir}/>
-      <p>Libras: {dineroConvertido.libras}</p>
-      <p>Dolares: {dineroConvertido.dolares}</p>
-      <p>Rupia: {dineroConvertido.rupias}</p>
-      <p>Yuan: {dineroConvertido.yuanes}</p>
-      <p>Bitcoin: {dineroConvertido.bitcoin}</p>
+
+      <select onChange={cambiarMoneda}>
+        <option>Libras</option>
+        <option>Dolares</option>
+        <option>Rupias</option>
+        <option>Yuanes</option>
+        <option>Bitcoin</option>
+      </select>
+
+      <Text dinero={dineroConvertido} moneda={moneda}/>
     </div>
   );
 }
